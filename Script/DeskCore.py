@@ -1,7 +1,7 @@
 import customtkinter as ctk
 
 ctk.set_appearance_mode("Dark")
-
+a = 1
 app = ctk.CTk()
 app.title("DeskCore")
 app.geometry("800x600")
