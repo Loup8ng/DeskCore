@@ -4,7 +4,7 @@ class DeskCoreApp:
     def __init__(self):
         self.app = ctk.CTk()
         self.app.title("DeskCore")
-        self.app.geometry("1400x800")
+        self.app.geometry("1000x600")
         self.current_theme = "light"
         self.initialisation()
 
@@ -18,7 +18,7 @@ class DeskCoreApp:
         self.delete_button = ctk.CTkButton(self.menu, width=70, height=70, text="-Zone", corner_radius=15, command=self.suppression_zone)
         self.delete_button.pack(padx=10, pady=10)
 
-        self.Notes_app = ctk.CTkButton(self.menu, width=70, height=70, text="Notes", corner_radius=15)
+        self.Notes_app = ctk.CTkButton(self.menu, width=70, height=70, text="Notes", corner_radius=15, command=self.est_vide)
         self.Notes_app.pack(padx=10, pady=10)
 
         self.theme_button = ctk.CTkButton(self.menu, width=70, height=70, text="Thème", corner_radius=15, command=self.change_theme)
@@ -28,10 +28,12 @@ class DeskCoreApp:
         self.new_frame.pack(side="right", fill="both", expand=True, padx=10, pady=10)
         self.frames = []
         self.frame_count = 0
+        self.frame_etat = 0
 
     def creation_zone(self):
         if self.frame_count < 5:
             self.frame_count += 1
+            self.frame_etat = 0
 
             new_frame = ctk.CTkFrame(self.new_frame, corner_radius=10, width=100, height=800)
             new_frame.pack(side="left", padx=10, pady=10)
@@ -81,6 +83,17 @@ class DeskCoreApp:
         ok_button = ctk.CTkButton(popup, text="OK", command=popup.destroy)
         ok_button.pack(pady=10)
         popup.focus()
+
+    def est_vide(self):
+        for i, elt in enumerate(self.frames):
+            if elt == 0:
+                print(i+1, "est vide")
+            else:
+                print(i+1, "n'est pas vide")
+
+    def notes_app(self):
+        pass
+
 
     def run(self):
         self.app.mainloop()
