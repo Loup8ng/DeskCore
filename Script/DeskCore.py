@@ -1,12 +1,11 @@
 import customtkinter as ctk
-# j'utilise principalement la doc https://customtkinter.tomschimansky.com/documentation/ pour le code.
 
 class DeskCoreApp:
     def __init__(self):
         self.app = ctk.CTk()
         self.app.title("DeskCore")
         self.app.geometry("1400x800")
-        self.app.iconbitmap("Ressources\images\iconDC.ico")
+        self.current_theme = "light"
         self.initialisation()
 
     def initialisation(self):
@@ -18,6 +17,12 @@ class DeskCoreApp:
 
         self.delete_button = ctk.CTkButton(self.menu, width=70, height=70, text="-Zone", corner_radius=15, command=self.suppression_zone)
         self.delete_button.pack(padx=10, pady=10)
+
+        self.Notes_app = ctk.CTkButton(self.menu, width=70, height=70, text="Notes", corner_radius=15)
+        self.Notes_app.pack(padx=10, pady=10)
+
+        self.theme_button = ctk.CTkButton(self.menu, width=70, height=70, text="Thème", corner_radius=15, command=self.change_theme)
+        self.theme_button.pack(padx=10, pady=10)
         
         self.new_frame = ctk.CTkFrame(self.app)
         self.new_frame.pack(side="right", fill="both", expand=True, padx=10, pady=10)
@@ -27,8 +32,18 @@ class DeskCoreApp:
     def creation_zone(self):
         if self.frame_count < 5:
             self.frame_count += 1
-            new_frame = ctk.CTkFrame(self.new_frame, corner_radius=10)
-            new_frame.pack(side="left", fill="both", padx=10, pady=10)
+
+            new_frame = ctk.CTkFrame(self.new_frame, corner_radius=10, width=100, height=800)
+            new_frame.pack(side="left", padx=10, pady=10)
+            new_frame.pack_propagate(False)
+
+            slider = ctk.CTkSlider(
+                master=new_frame, 
+                from_=100, 
+                to=600, 
+                command=lambda value, frame=new_frame: self.adjust_frame_width(value, frame)
+            )
+            slider.pack(padx=5, pady=5, anchor="nw")
             self.frames.append(new_frame)
         else:
             self.pop_up("Nombre de zones maximum atteint !")
@@ -40,6 +55,18 @@ class DeskCoreApp:
             self.frame_count -= 1
         else:
             self.pop_up("Aucune zone à supprimer !")
+
+    def adjust_frame_width(self, value, frame):
+        width2 = int(value)
+        frame.configure(width=width2)
+
+    def change_theme(self):
+        if self.current_theme == "light":
+            ctk.set_appearance_mode("dark")
+            self.current_theme = "dark"
+        else:
+            ctk.set_appearance_mode("light")
+            self.current_theme = "light"
 
     def pop_up(self, message):
         popup = ctk.CTkToplevel(self.app)
@@ -53,13 +80,13 @@ class DeskCoreApp:
 
         ok_button = ctk.CTkButton(popup, text="OK", command=popup.destroy)
         ok_button.pack(pady=10)
-        popup.focus_force()
+        popup.focus()
 
     def run(self):
         self.app.mainloop()
 
 
-ctk.set_appearance_mode("dark")
+ctk.set_appearance_mode("light")
 ctk.set_default_color_theme("dark-blue")
 app = DeskCoreApp()
 app.run()
