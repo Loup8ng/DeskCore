@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from Notes_app import NotesApp
 
 class DeskCoreApp:
     def __init__(self):
@@ -6,6 +7,8 @@ class DeskCoreApp:
         self.app.title("DeskCore")
         self.app.geometry("1000x600")
         self.current_theme = "light"
+        self.frames = []
+        self.frame_states = {}
         self.initialisation()
 
     def initialisation(self):
@@ -18,7 +21,7 @@ class DeskCoreApp:
         self.delete_button = ctk.CTkButton(self.menu, width=70, height=70, text="-Zone", corner_radius=15, command=self.suppression_zone)
         self.delete_button.pack(padx=10, pady=10)
 
-        self.Notes_app = ctk.CTkButton(self.menu, width=70, height=70, text="Notes", corner_radius=15, command=self.est_vide)
+        self.Notes_app = ctk.CTkButton(self.menu, width=70, height=70, text="Notes", corner_radius=15, command=self.ouvrir_notes)
         self.Notes_app.pack(padx=10, pady=10)
 
         self.theme_button = ctk.CTkButton(self.menu, width=70, height=70, text="Thème", corner_radius=15, command=self.change_theme)
@@ -26,14 +29,12 @@ class DeskCoreApp:
         
         self.new_frame = ctk.CTkFrame(self.app)
         self.new_frame.pack(side="right", fill="both", expand=True, padx=10, pady=10)
-        self.frames = []
         self.frame_count = 0
-        self.frame_etat = 0
 
     def creation_zone(self):
         if self.frame_count < 5:
             self.frame_count += 1
-            self.frame_etat = 0
+
 
             new_frame = ctk.CTkFrame(self.new_frame, corner_radius=10, width=100, height=800)
             new_frame.pack(side="left", padx=10, pady=10)
@@ -46,21 +47,24 @@ class DeskCoreApp:
                 command=lambda value, frame=new_frame: self.adjust_frame_width(value, frame)
             )
             slider.pack(padx=5, pady=5, anchor="nw")
+
             self.frames.append(new_frame)
+            self.frame_states[new_frame] = None
         else:
             self.pop_up("Nombre de zones maximum atteint !")
 
     def suppression_zone(self):
         if self.frames:
             frame_to_remove = self.frames.pop()
+            self.frame_states.pop(frame_to_remove, None)
             frame_to_remove.destroy()
             self.frame_count -= 1
         else:
             self.pop_up("Aucune zone à supprimer !")
 
     def adjust_frame_width(self, value, frame):
-        width2 = int(value)
-        frame.configure(width=width2)
+        new_width = int(value)
+        frame.configure(width=new_width)
 
     def change_theme(self):
         if self.current_theme == "light":
@@ -84,16 +88,13 @@ class DeskCoreApp:
         ok_button.pack(pady=10)
         popup.focus()
 
-    def est_vide(self):
-        for i, elt in enumerate(self.frames):
-            if elt == 0:
-                print(i+1, "est vide")
-            else:
-                print(i+1, "n'est pas vide")
-
-    def notes_app(self):
-        pass
-
+    def ouvrir_notes(self):
+        for frame, app in self.frame_states.items():
+            if app is None:
+                NotesApp(frame)
+                self.frame_states[frame] = "Notes"
+                return
+        self.pop_up("Aucune frame disponible pour ouvrir Notes !")
 
     def run(self):
         self.app.mainloop()
