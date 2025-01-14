@@ -1,5 +1,4 @@
 import customtkinter as ctk
-from Notes_app import NotesApp
 
 class DeskCoreApp:
     def __init__(self):
@@ -92,6 +91,7 @@ class DeskCoreApp:
     def ouvrir_notes(self):
         for frame, app in self.frame_states.items():
             if app is None:
+                from Notes_app import NotesApp
                 NotesApp(frame)
                 self.frame_states[frame] = "Notes"
                 return
