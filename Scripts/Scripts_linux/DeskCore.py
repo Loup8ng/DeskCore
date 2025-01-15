@@ -5,7 +5,6 @@ class DeskCoreApp:
         self.app = ctk.CTk()
         self.app.title("DeskCore")
         self.app.geometry("1000x600")
-        self.current_theme = "light"
         self.frames = []
         self.frame_states = {}
         self.initialisation()
