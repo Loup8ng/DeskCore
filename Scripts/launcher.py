@@ -11,7 +11,7 @@ class Launcher:
         self.menu_a = ctk.CTkFrame(self.app, width=250)
         self.menu_a.pack(side="left", fill="both", padx=20, pady=20)
 
-        self.menu_b = ctk.CTkFrame(self.app, width=4000)
+        self.menu_b = ctk.CTkFrame(self.app, width=400)
         self.menu_b.pack(side="right", fill="both", padx=20, pady=20)
 
         self.linux_button = ctk.CTkButton(self.menu_a, width=150, height=90, text="Launch Linux", corner_radius=20)
