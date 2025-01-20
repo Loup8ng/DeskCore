@@ -10,7 +10,7 @@ Karting ? non, là c'est trop.
 
 l'objectif est que cela reste plutôt simple d'utilisation, et un minimum customisable ( dark/light mode par exemple )
 
-Il n'y a aps vraiment de touches précises à vous indiquez ici, toute interaction ou presque se fait à la souris.
+Il n'y a pas vraiment de touches précises à vous indiquez ici, toute interaction ou presque se fait à la souris.
 
 Voilà, c'est à peu près tout.
-Amusez-vous vien avec notre application !
+Amusez-vous bien avec notre application !
