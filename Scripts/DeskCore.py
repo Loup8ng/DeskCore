@@ -1,7 +1,15 @@
 import customtkinter as ctk
 
 class DeskCoreApp:
+    """
+    Classe principale pour l'application DeskCore. 
+    Permet de gérer une interface avec des zones dynamiques, un menu, et d'autres fonctionnalités.
+    """
+
     def __init__(self):
+        """
+        Initialise l'application DeskCore et les variables de base.
+        """
         self.app = ctk.CTk()
         self.app.title("DeskCore")
         self.app.geometry("1000x600")
@@ -10,6 +18,10 @@ class DeskCoreApp:
         self.initialisation()
 
     def initialisation(self):
+        """
+        Initialise les éléments de l'interface graphique y compris le menu, 
+        les zones dynamiques et la barre de scroll horizontale.
+        """
         self.menu = ctk.CTkFrame(self.app, width=200)
         self.menu.pack(side="left", fill="both", padx=10, pady=10)
         
@@ -40,6 +52,10 @@ class DeskCoreApp:
         self.frame_count = 0
 
     def creation_zone(self):
+        """
+        Crée une nouvelle zone dynamique avec un scrool de largeur ajustable.
+        Affiche un message d'erreur si le nombre maximum de zones est atteint.
+        """
         if self.frame_count < 5:
             self.frame_count += 1
 
@@ -47,12 +63,7 @@ class DeskCoreApp:
             new_frame.pack(side="left", padx=10, pady=10)
             new_frame.pack_propagate(False)
 
-            slider = ctk.CTkSlider(
-                master=new_frame, 
-                from_=100, 
-                to=600, 
-                command=lambda value, frame=new_frame: self.adjust_frame_width(value, frame)
-            )
+            slider = ctk.CTkSlider(master=new_frame, from_=100, to=600, command=lambda value, frame=new_frame: self.adjust_frame_width(value, frame))
             slider.pack(padx=5, pady=5, anchor="nw")
 
             self.frames.append(new_frame)
@@ -61,6 +72,10 @@ class DeskCoreApp:
             self.pop_up("Nombre de zones maximum atteint !")
 
     def suppression_zone(self):
+        """
+        Supprime la dernière zone créée.
+        Affiche un message d'erreur si aucune zone n'existe.
+        """
         if self.frames:
             frame_to_remove = self.frames.pop()
             self.frame_states.pop(frame_to_remove, None)
@@ -70,10 +85,16 @@ class DeskCoreApp:
             self.pop_up("Aucune zone à supprimer !")
 
     def adjust_frame_width(self, value, frame):
+        """
+        Ajuste la largeur d'une frame en fonction de la valeur du scroll.
+        """
         new_width = int(value)
         frame.configure(width=new_width)
 
     def pop_up(self, message):
+        """
+        Affiche une fenêtre avec un message.
+        """
         popup = ctk.CTkToplevel(self.app)
         popup.title("Erreur")
         popup.geometry("300x150")
@@ -88,6 +109,10 @@ class DeskCoreApp:
         popup.focus()
 
     def ouvrir_notes(self):
+        """
+        Ouvre l'application notes dans une zone libre. 
+        Affiche un message d'erreur si aucune zone libre n'est disponible.
+        """
         for frame, app in self.frame_states.items():
             if app is None:
                 from Notes_app import NotesApp
@@ -97,7 +122,11 @@ class DeskCoreApp:
         self.pop_up("Aucune frame disponible pour ouvrir Notes !")
 
     def run(self):
+        """
+        Lance la boucle principale de l'application pour démarrer DeskCore.
+        """
         self.app.mainloop()
+
 
 ctk.set_appearance_mode("light")
 ctk.set_default_color_theme("dark-blue")
