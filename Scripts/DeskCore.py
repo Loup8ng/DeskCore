@@ -84,14 +84,14 @@ class DeskCoreApp:
         else:
             self.pop_up("Aucune zone à supprimer !")
 
-    def adjust_frame_width(self, value, frame):
+    def adjust_frame_width(self, value:int, frame:int):
         """
         Ajuste la largeur d'une frame en fonction de la valeur du scroll.
         """
         new_width = int(value)
         frame.configure(width=new_width)
 
-    def pop_up(self, message):
+    def pop_up(self, message:str):
         """
         Affiche une fenêtre avec un message.
         """
