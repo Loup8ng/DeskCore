@@ -5,7 +5,10 @@
 
 # Librairies néscessaires :
 - Customtkinter
-commande d'installation : "pip install customtkinter"
+
+Pour l'installer, il faut faire la commande d'installation : "pip install customtkinter"
+
+__Documentation customTkinter__ : https://customtkinter.tomschimansky.com/documentation/
 
 
 Notre projet est un logiciel que nous avons nommé DeskCore. Le but du logiciel est de servir de "Hub d'applications". En parlant d'applications, nous parlons principalement de logiciels tiers.
