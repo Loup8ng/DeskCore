@@ -1,18 +1,23 @@
-Bonjour !
+#22/01/2025
 
-Voilà Deskcore, notre application Python en développement !
+#Langage :
+- Python >= 3.12.3
 
-Avec celle-ci, vous pourrez, à terme, à peu près tout faire.
-Musique ? Deskcore.
-Notes ? Deskcore.
-Lanceur de jeux ( ou appli ) ? Deskcore.
+#Librairies néscessaires :
+- Customtkinter   "pip install customtkinter"
 
-l'objectif est que cela reste plutôt simple d'utilisation, et un minimum customisable ( dark/light mode par exemple )
 
-Il n'y a pas vraiment de touches précises à vous indiquez ici, toute interaction ou presque se fait à la souris.
+Notre projet se base sur un logiciel nommé DeskCore
+Le but du logiciel est de servir de "Hub d'application". Par Application je parle principalement de logiciel Tiers.
+Par exemple : 
+- logiciel de Notes
+- logiciel de monitoring de logiciel/jeux/pc
+- logiciel d'agenda/Horloge
+- logiciel d'enregistrement d'ecran, (screen, record, etc)
+- logiciel de covertisseur d'extansion
+- etc... etc...
 
-Prérequis:
-customtkinter
+Le logiciel se présente avec des système de Frames qu'on appele "Zone".
+Les Zones sont des espaces qui servent à mettre les Applications, on peut les ajouters ou les retirers.
 
-Voilà, c'est à peu près tout.
-Amusez-vous bien avec notre application !
+Il y à un menu à gauche qui contient les lanceurs des Applications
