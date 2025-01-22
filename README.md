@@ -1,23 +1,24 @@
-#22/01/2025
+# 22/01/2025
 
-#Langage :
+# Langage :
 - Python >= 3.12.3
 
-#Librairies néscessaires :
-- Customtkinter   "pip install customtkinter"
+# Librairies néscessaires :
+- Customtkinter
+commande d'installation : "pip install customtkinter"
 
 
-Notre projet se base sur un logiciel nommé DeskCore
-Le but du logiciel est de servir de "Hub d'application". Par Application je parle principalement de logiciel Tiers.
+Notre projet est un logiciel que nous avons nommé DeskCore. Le but du logiciel est de servir de "Hub d'applications". En parlant d'applications, nous parlons principalement de logiciels tiers.
+
 Par exemple : 
 - logiciel de Notes
 - logiciel de monitoring de logiciel/jeux/pc
 - logiciel d'agenda/Horloge
 - logiciel d'enregistrement d'ecran, (screen, record, etc)
 - logiciel de covertisseur d'extansion
-- etc... etc...
+- etc...
 
-Le logiciel se présente avec des système de Frames qu'on appele "Zone".
-Les Zones sont des espaces qui servent à mettre les Applications, on peut les ajouters ou les retirers.
+Le logiciel se présente avec des systèmes de Frames qu'on appele "Zone".
+Les Zones sont des espaces qui servent à mettre les applications, on peut les ajouter ou les retirer.
 
-Il y à un menu à gauche qui contient les lanceurs des Applications
+à gauche, on peut trouver un menu qui contient les lanceurs des applications.
