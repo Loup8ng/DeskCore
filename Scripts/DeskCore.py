@@ -48,6 +48,7 @@ class DeskCoreApp:
         self.canvas.create_window((0, 0), window=self.new_frame, anchor="nw")
 
         self.new_frame.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
+        # Cela permet de crée un slider pour defiler les Zones/Frames
 
         self.frame_count = 0
 
@@ -108,6 +109,9 @@ class DeskCoreApp:
         ok_button.pack(pady=10)
         popup.focus()
 
+        # Pour l'instant ça deconne sur Linux et non sur Windows
+        # problème : grab_set() et focus() qui se casse sur Linux
+
     def ouvrir_notes(self):
         """
         Ouvre l'application notes dans une zone libre. 
@@ -128,7 +132,10 @@ class DeskCoreApp:
         self.app.mainloop()
 
 
-ctk.set_appearance_mode("light")
+ctk.set_appearance_mode("light") 
 ctk.set_default_color_theme("dark-blue")
+
+# les deux lignes du dessus sont là pour mettre le thème en attendant que Houssemand fasse la fonction
+
 app = DeskCoreApp()
 app.run()
