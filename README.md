@@ -21,7 +21,7 @@ Par exemple :
 - logiciel de covertisseur d'extansion
 - etc...
 
-Le logiciel se présente avec des systèmes de Frames qu'on appele "Zone".
+Le logiciel se présente avec des systèmes de Frames que nous appelons "Zone".
 Les Zones sont des espaces qui servent à mettre les applications, on peut les ajouter ou les retirer.
 
 à gauche, on peut trouver un menu qui contient les lanceurs des applications.
