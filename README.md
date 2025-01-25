@@ -1,7 +1,9 @@
-# 22/01/2025
+# 25/01/2025
+Windows
+
 
 # Langage :
-- Python >= 3.12.3
+- Python supérieur à 3.10
 
 # Librairies néscessaires :
 - Customtkinter
@@ -18,10 +20,12 @@ Par exemple :
 - logiciel de monitoring de logiciel/jeux/pc
 - logiciel d'agenda/Horloge
 - logiciel d'enregistrement d'ecran, (screen, record, etc)
-- logiciel de covertisseur d'extansion
+- logiciel de convertisseur d'extansion
 - etc...
 
-Le logiciel se présente avec des systèmes de Frames que nous appelons "Zone".
-Les Zones sont des espaces qui servent à mettre les applications, on peut les ajouter ou les retirer.
+Nos objéctifs en cours sont :
+- Un theme manager
+- Finir l'application Notes
+- Réparer les problèmes liés à la compatibilitée Linux
 
-à gauche, on peut trouver un menu qui contient les lanceurs des applications.
+Pour lancer DeskCore il faut ouvrir le fichier DeskCore.py qui se trouve normalement dans /Scripts/DeskCore.py
