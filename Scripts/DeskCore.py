@@ -1,6 +1,4 @@
 import customtkinter as ctk
-from Notes_app import NotesApp
-
 
 class DeskCoreApp:
     """
@@ -14,7 +12,6 @@ class DeskCoreApp:
         self.app.title("DeskCore")
         self.app.geometry("1200x800")
         self.app.resizable(False, False)
-
 
         self.menu_bar = ctk.CTkFrame(self.app,
                                      height=100,
@@ -40,7 +37,7 @@ class DeskCoreApp:
                              pady=5)
         
         self.settings_button = ctk.CTkButton(self.menu_bar,
-                                             text="Paramètre",
+                                             text="Paramètres",
                                              corner_radius=10,
                                              width=100,
                                              height=30,
@@ -66,31 +63,26 @@ class DeskCoreApp:
         self.apps_menu = None
         self.settings_frame = None
 
-
-        self.show_settings()
-
     def clear_main_zone(self):
         """
-        Supprime tous les widgets de la Main Zone. ( Main Zone c'est le nom de la grande Frame qui contient les applications et les paramètres)
+        Supprime tous les widgets de la zone principale.
         """
         for widget in self.main_zone.winfo_children():
             widget.destroy()
-        
-        self.settings_frame = None
+
 
     def toggle_apps_menu(self):
         """
-        Affiche ou cache le menu des applications sous le menu.
+        Affiche ou cache le menu des applications sous le menu principal.
         """
         if self.apps_menu:
             self.apps_menu.destroy()
             self.apps_menu = None
         else:
             self.apps_menu = ctk.CTkFrame(self.app,
-                                          height=80,
-                                          fg_color="#333333",
-                                          corner_radius=10)
-            
+                                        height=100,
+                                        fg_color="#333333",
+                                        corner_radius=10)
             self.apps_menu.pack(side="top",
                                 fill="x",
                                 pady=10,
@@ -101,20 +93,18 @@ class DeskCoreApp:
                     ("Musique", self.action),
                     ("...", self.action),
                     ("...", self.action)]
-            
+
             for app_name, command in apps:
                 app_button = ctk.CTkButton(self.apps_menu,
-                                           text=app_name,
-                                           corner_radius=10,
-                                           width=120,
-                                           height=50,
-                                           hover_color="#5A5A5A",
-                                           fg_color="#444444",
-                                           command=command)
-                
-                app_button.pack(side="left",
-                                padx=15,
-                                pady=10)
+                                        text=app_name,
+                                        corner_radius=10,
+                                        width=120,
+                                        height=50,
+                                        hover_color="#5A5A5A",
+                                        fg_color="#444444",
+                                        command=command)
+                app_button.pack(side="left", padx=15, pady=10)
+
 
     def show_settings(self):
         """
@@ -131,31 +121,42 @@ class DeskCoreApp:
                                  padx=15,
                                  pady=10)
         
-        options = ["Désactiver la sauvegarde auto"]
+        options = ["reglage 1",
+                   "reglage 2",
+                   "reglage 3",
+                   "reglage 4,"]
         
         for option in options:
-            checkbox = ctk.CTkCheckBox(self.settings_frame,
-                                        text=option,
-                                        command=self.action)
+            switch = ctk.CTkSwitch(self.settings_frame,
+                                   text=option,
+                                   command=self.action)
             
-            checkbox.pack(anchor="w",
-                          padx=15,
-                          pady=10)
+            switch.pack(anchor="w",
+                        padx=15,
+                        pady=10)
 
     def action(self):
+        """
+        histoire de dire que ya quelque chose.
+        """
         pass
 
     def open_Notes_app(self):
         """
-        Ouvre l'application Notes_app.
+        Ouvre l'application Notes.
         """
+        from Notes_app import NotesApp
+        
+        self.clear_main_zone()
         NotesApp(self.main_zone)
+
 
     def run(self):
         """
-        Lance la boucle.
+        Lance la boucle principale.
         """
         self.app.mainloop()
+
 
 app = DeskCoreApp()
 app.run()

@@ -1,47 +1,68 @@
+from dkce_extension import DKCE
 import customtkinter as ctk
-
+from customtkinter import filedialog
 
 class NotesApp:
-    """
-    Application Notes pour DeskCore.
-    """
-    def __init__(self, master_zone:str):
+    def __init__(self, parent:str):
         """
-        Initialise l'application Notes dans la main_zone.
+        Initialise l'application Notes dans la zone principale.
         """
-        self.master_zone = master_zone
-        self.notes_frame = None
-        self.text_area = None
-
-        self.setup()
-
-    def setup(self):
-        """
-        Configure l'appli Notes.
-        """
+        self.frame = ctk.CTkFrame(parent,
+                                  fg_color="#2B2B2B",
+                                  corner_radius=10)
         
-        for widget in self.master_zone.winfo_children():
-            widget.destroy()
+        self.frame.pack(fill="both",
+                        expand=True,
+                        padx=15,
+                        pady=10)
 
-        self.notes_frame = ctk.CTkFrame(self.master_zone,
-                                        fg_color="#333333",
-                                        corner_radius=10)
-        
-        self.notes_frame.pack(fill="both",
-                              expand=True,
-                              padx=15,
-                              pady=10)
-        
-        self.text_area = ctk.CTkTextbox(self.notes_frame,
+        self.text_area = ctk.CTkTextbox(self.frame,
                                         width=800,
-                                        height=500,
-                                        corner_radius=10,
-                                        fg_color="#444444",
-                                        text_color="white",
-                                        font=("Arial", 14))
+                                        height=400)
         
-        self.text_area.pack(fill="both",
-                            expand=True,
-                            padx=15,
-                            pady=15)
+        self.text_area.pack(padx=15,
+                            pady=15,
+                            expand=True)
 
+        save_button = ctk.CTkButton(self.frame,
+                                    text="Sauvegarder",
+                                    command=self.save_notes,
+                                    hover_color="#5A5A5A",
+                                    fg_color="#444444")
+        
+        save_button.pack(side="left",
+                         padx=10,
+                         pady=10)
+
+        load_button = ctk.CTkButton(self.frame,
+                                    text="Charger",
+                                    command=self.load_notes,
+                                    hover_color="#5A5A5A",
+                                    fg_color="#444444")
+        
+        load_button.pack(side="left",
+                         padx=10,
+                         pady=10)
+
+    def save_notes(self):
+        """
+        Sauvegarde le contenu dans un fichier .dkceTXT.
+        """
+        file_path = filedialog.asksaveasfilename(defaultextension=".dkceTXT",
+                                      filetypes=[("DeskCore Text Files", "*.dkceTXT")])
+        
+        if file_path:
+            DKCE.save_dkceTXT(file_path, self.text_area.get("1.0", "end-1c")) #end-1c en gros ca fait comme "end" mais ca s'arrete avant d eretourner à la ligne (c'est mieux pour recuperer un texte)
+
+    def load_notes(self):
+        """
+        Charge un fichier .dkceTXT.
+        """
+        file_path = filedialog.askopenfilename(filetypes=[("DeskCore Text Files", "*.dkceTXT")])
+        
+        if file_path:
+            text = DKCE.load_dkceTXT(file_path)
+            if text is not None:
+                self.text_area.delete("1.0", "end")
+                
+                self.text_area.insert("1.0", text)
