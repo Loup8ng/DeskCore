@@ -81,8 +81,9 @@ class DeskCoreApp:
         else:
             self.apps_menu = ctk.CTkFrame(self.app,
                                         height=100,
-                                        fg_color="#333333",
+                                        fg_color="#2B2B2B",
                                         corner_radius=10)
+            
             self.apps_menu.pack(side="top",
                                 fill="x",
                                 pady=10,
@@ -103,6 +104,7 @@ class DeskCoreApp:
                                         hover_color="#5A5A5A",
                                         fg_color="#444444",
                                         command=command)
+                
                 app_button.pack(side="left", padx=15, pady=10)
 
 

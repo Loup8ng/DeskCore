@@ -2,8 +2,9 @@ from dkce_extension import DKCE
 import customtkinter as ctk
 from customtkinter import filedialog
 
+
 class NotesApp:
-    def __init__(self, parent:str):
+    def __init__(self, parent):
         """
         Initialise l'application Notes dans la zone principale.
         """
@@ -16,13 +17,56 @@ class NotesApp:
                         padx=15,
                         pady=10)
 
-        self.text_area = ctk.CTkTextbox(self.frame,
-                                        width=800,
-                                        height=400)
+        self.content_frame = ctk.CTkFrame(self.frame,
+                                          fg_color="#2B2B2B")
         
-        self.text_area.pack(padx=15,
-                            pady=15,
-                            expand=True)
+        self.content_frame.pack(fill="both",
+                                expand=True,
+                                padx=15,
+                                pady=15)
+
+        self.text_frame = ctk.CTkFrame(self.content_frame,
+                                       fg_color="#2B2B2B")
+        
+        self.text_frame.pack(side="left",
+                             fill="both",
+                             expand=True,
+                             padx=15,
+                             pady=15)
+
+        self.text_area = ctk.CTkTextbox(self.text_frame,
+                                        width=600,
+                                        height=300)
+        
+        self.text_area.pack(fill="both", expand=True)
+
+        self.proprieties_button = ctk.CTkButton(self.text_frame,
+                                                text="Propriétés",
+                                                command=self.toggle_proprieties_frame,
+                                                hover_color="#5A5A5A",
+                                                fg_color="#444444")
+        
+        self.proprieties_button.pack(anchor="ne", padx=5, pady=5)
+
+        self.proprieties_Frame = ctk.CTkFrame(self.content_frame,
+                                              fg_color="#303030",
+                                              corner_radius=10,
+                                              width=300)
+        
+        self.proprieties_Frame.pack(side="right",
+                                    padx=15,
+                                    pady=15,
+                                    fill="y")
+
+        ctk.CTkLabel(self.proprieties_Frame,
+                     text="Police d'écriture :",
+                     fg_color="#303030").pack(pady=10, padx=10)
+
+        self.font_choice = ctk.CTkComboBox(self.proprieties_Frame,
+                                           values=["Arial", "Courier New", "Comic Sans MS", "Times New Roman", "Verdana"],
+                                           command=self.change_font)
+        
+        self.font_choice.pack(pady=10, padx=10)
 
         save_button = ctk.CTkButton(self.frame,
                                     text="Sauvegarder",
@@ -30,9 +74,7 @@ class NotesApp:
                                     hover_color="#5A5A5A",
                                     fg_color="#444444")
         
-        save_button.pack(side="left",
-                         padx=10,
-                         pady=10)
+        save_button.pack(side="left", padx=10, pady=10)
 
         load_button = ctk.CTkButton(self.frame,
                                     text="Charger",
@@ -40,9 +82,29 @@ class NotesApp:
                                     hover_color="#5A5A5A",
                                     fg_color="#444444")
         
-        load_button.pack(side="left",
-                         padx=10,
-                         pady=10)
+        load_button.pack(side="left", padx=10, pady=10)
+
+        self.is_proprieties_visible = True
+
+    def toggle_proprieties_frame(self):
+        """
+        Affiche ou masque la frame des propriétés.
+        """
+        if self.is_proprieties_visible:
+            self.proprieties_Frame.pack_forget()
+        else:
+            self.proprieties_Frame.pack(side="right",
+                                        padx=15,
+                                        pady=15,
+                                        fill="y")
+            
+        self.is_proprieties_visible = not self.is_proprieties_visible
+
+    def change_font(self, font_name):
+        """
+        Change la police d'écriture de la zone de texte.
+        """
+        self.text_area.configure(font=(font_name, 12))
 
     def save_notes(self):
         """
@@ -52,7 +114,7 @@ class NotesApp:
                                       filetypes=[("DeskCore Text Files", "*.dkceTXT")])
         
         if file_path:
-            DKCE.save_dkceTXT(file_path, self.text_area.get("1.0", "end-1c")) #end-1c en gros ca fait comme "end" mais ca s'arrete avant d eretourner à la ligne (c'est mieux pour recuperer un texte)
+            DKCE.save_dkceTXT(file_path, self.text_area.get("1.0", "end-1c"))  # end-1c pour ne pas inclure le retour à la ligne final
 
     def load_notes(self):
         """
@@ -64,5 +126,4 @@ class NotesApp:
             text = DKCE.load_dkceTXT(file_path)
             if text is not None:
                 self.text_area.delete("1.0", "end")
-                
                 self.text_area.insert("1.0", text)
