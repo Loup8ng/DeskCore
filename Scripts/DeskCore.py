@@ -147,7 +147,7 @@ class DeskCoreApp:
         """
         Ouvre l'application Notes.
         """
-        from Notes_app import NotesApp
+        from applications.Notes_app import NotesApp
         
         self.clear_main_zone()
         NotesApp(self.main_zone)
