@@ -48,7 +48,19 @@ class DeskCoreApp:
         self.settings_button.pack(side="left",
                                   padx=15,
                                   pady=5)
+
+        self.jeux_button = ctk.CTkButton(self.menu_bar,
+                                        text="Jeux",
+                                        corner_radius=10,
+                                        width=100,
+                                        height=30,
+                                        command=self.toggle_jeux_menu,
+                                        hover_color="#5A5A5A",
+                                        fg_color="#444444")
         
+        self.jeux_button.pack(side="left",
+                             padx=15,
+                             pady=5)        
 
         self.main_zone = ctk.CTkFrame(self.app,
                                       fg_color="#2B2B2B")
@@ -61,6 +73,7 @@ class DeskCoreApp:
         
 
         self.apps_menu = None
+        self.jeux_menu = None
         self.settings_frame = None
 
     def clear_main_zone(self):
@@ -107,6 +120,38 @@ class DeskCoreApp:
                 
                 app_button.pack(side="left", padx=15, pady=10)
 
+    def toggle_jeux_menu(self):
+        """
+        Affiche ou cache le menu des jeux sous le menu principal.
+        """
+        if self.jeux_menu:
+            self.jeux_menu.destroy()
+            self.jeux_menu = None
+        else:
+            self.jeux_menu = ctk.CTkFrame(self.app,
+                                        height=100,
+                                        fg_color="#2B2B2B",
+                                        corner_radius=10)
+            
+            self.jeux_menu.pack(side="top",
+                                fill="x",
+                                pady=10,
+                                padx=15)
+
+            jeux = [("Morpion à deux", self.open_morpion_a_deux_app),
+                    ("...", self.action)]
+            
+            for jeux_name, command in jeux:
+                jeux_button = ctk.CTkButton(self.jeux_menu,
+                                        text=jeux_name,
+                                        corner_radius=10,
+                                        width=120,
+                                        height=50,
+                                        hover_color="#5A5A5A",
+                                        fg_color="#444444",
+                                        command=command)
+                
+                jeux_button.pack(side="left", padx=15, pady=10)
 
     def show_settings(self):
         """
@@ -152,6 +197,11 @@ class DeskCoreApp:
         self.clear_main_zone()
         NotesApp(self.main_zone)
 
+    def open_morpion_a_deux_app(self):
+        """
+        Ouvre le jeu du morpion.
+        """
+        from jeux.morpion_a_deux_app import MorpionApp
 
     def run(self):
         """
