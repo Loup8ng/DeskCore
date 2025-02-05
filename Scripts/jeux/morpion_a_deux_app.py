@@ -1,11 +1,12 @@
 import customtkinter as ctk
 import random
 
-class MorpionApp(ctk.CTk):
+class MorpionApp(ctk.CTkToplevel):
     def __init__(self,):
         super().__init__()
         self.title("Morpion à deux")
         self.geometry("400x500")
+        self.resizable(True, True)
         
         self.joueur_act = "X"
         self.board = [[None for _ in range(3)] for _ in range(3)]

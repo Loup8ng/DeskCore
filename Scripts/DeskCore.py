@@ -59,8 +59,8 @@ class DeskCoreApp:
                                         fg_color="#444444")
         
         self.jeux_button.pack(side="left",
-                             padx=15,
-                             pady=5)        
+                            padx=15,
+                            pady=5)        
 
         self.main_zone = ctk.CTkFrame(self.app,
                                       fg_color="#2B2B2B")
@@ -203,7 +203,9 @@ class DeskCoreApp:
         """
         from jeux.morpion_a_deux_app import MorpionApp
 
-        self.clear_main_zone()
+        pop_up = MorpionApp()
+        pop_up.lift()
+        pop_up.attributes("-topmost", True)
         MorpionApp()
 
     def run(self):
@@ -211,7 +213,6 @@ class DeskCoreApp:
         Lance la boucle principale.
         """
         self.app.mainloop()
-
 
 app = DeskCoreApp()
 app.run()
