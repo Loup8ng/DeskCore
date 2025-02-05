@@ -2,15 +2,15 @@ import customtkinter as ctk
 import random
 
 class MorpionApp(ctk.CTk):
-    def __init__(self):
+    def __init__(self,):
         super().__init__()
-        self.title("Morpion")
+        self.title("Morpion à deux")
         self.geometry("400x500")
         
-        self.current_player = "X"
+        self.joueur_act = "X"
         self.board = [[None for _ in range(3)] for _ in range(3)]
         
-        self.label = ctk.CTkLabel(self, text=f"Tour du joueur {self.current_player}")
+        self.label = ctk.CTkLabel(self, text=f"Tour du joueur {self.joueur_act}")
         self.label.pack(pady=10)
         
         self.frame = ctk.CTkFrame(self)
@@ -27,11 +27,11 @@ class MorpionApp(ctk.CTk):
     
     def play(self, row, col):
         if self.board[row][col] is None:
-            self.board[row][col] = self.current_player
-            self.buttons[row][col].configure(text=self.current_player)
+            self.board[row][col] = self.joueur_act
+            self.buttons[row][col].configure(text=self.joueur_act)
             
-            if self.check_win(self.current_player):
-                self.label.configure(text=f"Le joueur {self.current_player} gagne !")
+            if self.check_win(self.joueur_act):
+                self.label.configure(text=f"Le joueur {self.joueur_act} gagne !")
                 self.disable_buttons()
                 return
             
@@ -39,8 +39,8 @@ class MorpionApp(ctk.CTk):
                 self.label.configure(text="Match nul !")
                 return
             
-            self.current_player = "O" if self.current_player == "X" else "X"
-            self.label.configure(text=f"Tour du joueur {self.current_player}")
+            self.joueur_act = "O" if self.joueur_act == "X" else "X"
+            self.label.configure(text=f"Tour du joueur {self.joueur_act}")
     
     def check_win(self, player):
         for row in self.board:
@@ -62,13 +62,13 @@ class MorpionApp(ctk.CTk):
                 button.configure(state="disabled")
     
     def reset_game(self):
-        self.current_player = "X"
+        self.joueur_act = "X"
         self.board = [[None for _ in range(3)] for _ in range(3)]
-        self.label.configure(text=f"Tour du joueur {self.current_player}")
+        self.label.configure(text=f"Tour du joueur {self.joueur_act}")
         for i in range(3):
             for j in range(3):
                 self.buttons[i][j].configure(text="", state="normal")
 
 if __name__ == "__main__":
-    app = Morpion()
+    app = MorpionApp()
     app.mainloop()

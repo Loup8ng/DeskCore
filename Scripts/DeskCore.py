@@ -11,7 +11,7 @@ class DeskCoreApp:
         self.app = ctk.CTk()
         self.app.title("DeskCore")
         self.app.geometry("1200x800")
-        self.app.resizable(False, False)
+        self.app.resizable(True, True)
 
         self.menu_bar = ctk.CTkFrame(self.app,
                                      height=100,
@@ -202,6 +202,9 @@ class DeskCoreApp:
         Ouvre le jeu du morpion.
         """
         from jeux.morpion_a_deux_app import MorpionApp
+
+        self.clear_main_zone()
+        MorpionApp()
 
     def run(self):
         """
