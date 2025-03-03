@@ -12,6 +12,7 @@ class DeskCoreApp:
         self.app.title("DeskCore")
         self.app.geometry("1200x800")
         self.app.resizable(True, True)
+        self.enroute = False
 
         self.menu_bar = ctk.CTkFrame(self.app,
                                      height=100,
@@ -203,10 +204,14 @@ class DeskCoreApp:
         """
         from jeux.morpion_a_deux_app import MorpionApp
 
-        pop_up = MorpionApp()
-        pop_up.lift()
-        pop_up.attributes("-topmost", True)
-        MorpionApp()
+        if self.enroute == True:
+            pass
+        else:
+            pop_up = MorpionApp()
+            pop_up.lift()
+            pop_up.attributes("-topmost", True)
+            MorpionApp()
+            self.enroute = True
 
     def run(self):
         """
