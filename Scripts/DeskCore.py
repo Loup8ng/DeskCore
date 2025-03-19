@@ -199,18 +199,11 @@ class DeskCoreApp:
         NotesApp(self.main_zone)
 
     def open_morpion_a_deux_app(self):
-        """
-        Ouvre le jeu du morpion.
-        """
         from jeux.morpion_a_deux_app import MorpionApp
 
-        if self.enroute == True:
-            pass
-        else:
-            pop_up = MorpionApp()
-            pop_up.lift()
-            pop_up.attributes("-topmost", True)
-            MorpionApp()
+        if not self.enroute:
+            self.morpion_window = MorpionApp()
+            self.morpion_window.mainloop()
             self.enroute = True
 
     def run(self):
