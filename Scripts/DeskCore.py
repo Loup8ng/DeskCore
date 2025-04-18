@@ -161,33 +161,39 @@ class DeskCoreApp:
         self.clear_main_zone()
         
         self.settings_frame = ctk.CTkFrame(self.main_zone,
-                                           fg_color="#333333",
-                                           corner_radius=10)
+                                        fg_color="#333333",
+                                        corner_radius=10)
         
         self.settings_frame.pack(fill="both",
-                                 expand=True,
-                                 padx=15,
-                                 pady=10)
-        
-        options = ["reglage 1",
-                   "reglage 2",
-                   "reglage 3",
-                   "reglage 4,"]
-        
-        for option in options:
-            switch = ctk.CTkSwitch(self.settings_frame,
-                                   text=option,
-                                   command=self.action)
-            
-            switch.pack(anchor="w",
-                        padx=15,
-                        pady=10)
+                                expand=True,
+                                padx=15,
+                                pady=10)
 
-    def action(self):
+        # Titre ou label
+        label = ctk.CTkLabel(self.settings_frame, text="Choisissez un thème :", font=("Arial", 14), text_color="white")
+        label.pack(pady=10, padx=10, anchor="w")
+
+        # Options du menu déroulant
+        options = ["système", "clair", "sombre"]
+
+        # Créer le menu
+        self.theme_menu = ctk.CTkOptionMenu(self.settings_frame,
+                                            values=options,
+                                            command=self.change_theme)  # Appelle une fonction quand on change d'option
+        
+        self.theme_menu.pack(pady=5, padx=5, anchor="w")
+
+    def change_theme(self, value):
         """
-        histoire de dire que ya quelque chose.
+        Change le thème selon la sélection du menu.
         """
-        pass
+        if value == "sombre" : 
+            ctk.set_appearance_mode("dark")
+        elif value == "clair" : 
+            ctk.set_appearance_mode("light")
+        elif value == "système" : 
+            ctk.set_appearance_mode("système")
+
 
     def open_Notes_app(self):
         """
