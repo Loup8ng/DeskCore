@@ -108,22 +108,53 @@ class NotesApp:
 
     def save_notes(self):
         """
-        Sauvegarde le contenu dans un fichier .dkceTXT.
+        Sauvegarde le contenu dans un fichier .dkceTXT avec la police cachée.
         """
         file_path = filedialog.asksaveasfilename(defaultextension=".dkceTXT",
-                                      filetypes=[("DeskCore Text Files", "*.dkceTXT")])
-        
+                                        filetypes=[("DeskCore Text Files", "*.dkceTXT")])
+
         if file_path:
-            DKCE.save_dkceTXT(file_path, self.text_area.get("1.0", "end-1c"))  # end-1c pour ne pas inclure le retour à la ligne final
+            # Récupérer le texte et la police
+            text_content = self.text_area.get("1.0", "end-1c")
+            current_font = self.font_choice.get()
+            
+            # Créer une ligne spéciale pour la police au début du fichier
+            # Format: ##DKCE_FONT:NomDeLaPolice##
+            font_marker = f"##DKCE_FONT:{current_font}##\n"
+            
+            # Combiner le marqueur et le contenu
+            full_content = font_marker + text_content
+            
+            # Sauvegarder le contenu complet
+            DKCE.save_dkceTXT(file_path, full_content)
 
     def load_notes(self):
         """
-        Charge un fichier .dkceTXT.
+        Charge un fichier .dkceTXT et extrait la police si disponible.
         """
         file_path = filedialog.askopenfilename(filetypes=[("DeskCore Text Files", "*.dkceTXT")])
-        
+
         if file_path:
-            text = DKCE.load_dkceTXT(file_path)
-            if text is not None:
-                self.text_area.delete("1.0", "end")
-                self.text_area.insert("1.0", text)
+            content = DKCE.load_dkceTXT(file_path)
+            if content is not None:
+                # Chercher le marqueur de police
+                import re
+                font_match = re.match(r"##DKCE_FONT:([^#]+)##\n(.*)", content, re.DOTALL)
+                
+                if font_match:
+                    # Extraire la police et le contenu réel
+                    font = font_match.group(1)
+                    text = font_match.group(2)
+                    
+                    # Mettre à jour le texte sans le marqueur de police
+                    self.text_area.delete("1.0", "end")
+                    self.text_area.insert("1.0", text)
+                    
+                    # Mettre à jour la police si elle est valide
+                    if font in ["Arial", "Courier New", "Comic Sans MS", "Times New Roman", "Verdana"]:
+                        self.font_choice.set(font)
+                        self.change_font(font)
+                else:
+                    # Pas de marqueur trouvé, charger tout le contenu tel quel
+                    self.text_area.delete("1.0", "end")
+                    self.text_area.insert("1.0", content)
