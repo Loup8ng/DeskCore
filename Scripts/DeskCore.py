@@ -77,6 +77,12 @@ class DeskCoreApp:
         self.jeux_menu = None
         self.settings_frame = None
 
+    def action(self):
+        """
+        histoire de dire que ya quelque chose.
+        """
+        pass
+
     def clear_main_zone(self):
         """
         Supprime tous les widgets de la zone principale.
@@ -104,7 +110,7 @@ class DeskCoreApp:
                                 padx=15)
 
             apps = [("Notes_app", self.open_Notes_app),
-                    ("Calculatrice", self.action),
+                    ("Calculatrice", self.open_calculatrice_app),
                     ("Musique", self.action),
                     ("...", self.action),
                     ("...", self.action)]
@@ -203,6 +209,15 @@ class DeskCoreApp:
         
         self.clear_main_zone()
         NotesApp(self.main_zone)
+
+    def open_calculatrice_app(self):
+        """
+        Ouvre l'application Notes.
+        """
+        from applications.Calculator_app import Calculatrice
+        
+        self.clear_main_zone()
+        Calculatrice(self.main_zone)
 
     def open_morpion_a_deux_app(self):
         from jeux.morpion_a_deux_app import MorpionApp
