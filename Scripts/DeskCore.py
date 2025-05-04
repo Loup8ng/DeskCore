@@ -14,10 +14,11 @@ class DeskCoreApp:
         self.app.resizable(True, True)
         self.enroute = False
 
+        self.font = "white"        
         self.menu_bar = ctk.CTkFrame(self.app,
                                      height=100,
                                      corner_radius=5,
-                                     fg_color="#2B2B2B")
+                                     fg_color=self.font)
         
         self.menu_bar.pack(side="top",
                            pady=10,
@@ -64,7 +65,7 @@ class DeskCoreApp:
                             pady=5)        
 
         self.main_zone = ctk.CTkFrame(self.app,
-                                      fg_color="#2B2B2B")
+                                      fg_color=self.font)
         
         self.main_zone.pack(fill="both",
                             side="bottom",
@@ -76,6 +77,19 @@ class DeskCoreApp:
         self.apps_menu = None
         self.jeux_menu = None
         self.settings_frame = None
+
+    fond = ["white", "dark"]
+    def fond_color(self, value): 
+       
+        if value == "white":
+            self.font = "white"
+            return self.font 
+        elif value == "dark":
+            self.font = "dark" 
+            return self.font
+        else: 
+            pass
+
 
     def action(self):
         """
@@ -101,7 +115,7 @@ class DeskCoreApp:
         else:
             self.apps_menu = ctk.CTkFrame(self.app,
                                         height=100,
-                                        fg_color="#2B2B2B",
+                                        fg_color=self.font,
                                         corner_radius=10)
             
             self.apps_menu.pack(side="top",
@@ -137,7 +151,7 @@ class DeskCoreApp:
         else:
             self.jeux_menu = ctk.CTkFrame(self.app,
                                         height=100,
-                                        fg_color="#2B2B2B",
+                                        fg_color=self.font,
                                         corner_radius=10)
             
             self.jeux_menu.pack(side="top",
@@ -167,7 +181,7 @@ class DeskCoreApp:
         self.clear_main_zone()
         
         self.settings_frame = ctk.CTkFrame(self.main_zone,
-                                        fg_color="#333333",
+                                        fg_color=self.font,
                                         corner_radius=10)
         
         self.settings_frame.pack(fill="both",
@@ -185,9 +199,13 @@ class DeskCoreApp:
         # Créer le menu
         self.theme_menu = ctk.CTkOptionMenu(self.settings_frame,
                                             values=options,
-                                            command=self.change_theme)  # Appelle une fonction quand on change d'option
+                                            command=self.theme)  # Appelle une fonction quand on change d'option
         
         self.theme_menu.pack(pady=5, padx=5, anchor="w")
+
+    def theme (self, value):
+        self.change_theme(value)
+        self.fond_color(value)
 
     def change_theme(self, value):
         """
